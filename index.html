@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Pabellón - Menú</title>
+    <style>
+        .estrellas {
+            color: #ffffff;
+            font-size: 2rem;
+            letter-spacing: 8px;
+            margin-top: 10px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        :root {
+            --bg-color: #111111;
+            --card-bg: rgba(26, 26, 26, 0.9);
+            --primary-yellow: #FFD700;
+            --text-light: #ffffff;
+            --text-muted: #cccccc;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.85)), url('fondop.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            position: relative;
+            text-align: center;
+            border-bottom: 4px solid var(--primary-yellow);
+            overflow: hidden; 
+            
+        /* Estas líneas hacen la cabecera más alta y centran todo */
+            min-height: 10vh; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+        .video-fondo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; 
+            filter: brightness(0.4); 
+        }
+
+        .contenido-header {
+            position: relative;
+            z-index: 1; 
+        }
+
+        /* Espacio para el logo */
+        .logo-container {
+            width: 200px;          /* Ancho fijo */
+            height: 200px;         /* Alto fijo (igual al ancho para que sea cuadrado) */
+            border-radius: 50%;    /* ¡EL TRUCO! Esto convierte el cuadrado en un círculo perfecto */
+            object-fit: cover;     /* Asegura que la imagen rellene el círculo sin deformarse */
+            display: block;        /* Necesario para poder centrarla */
+            margin: 0 auto 20px auto; /* Centrado horizontal y margen abajo */
+            border: 4px solid var(--primary-yellow); /* Borde amarillo para que resalte */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Sombra suave para dar profundidad */
+            background-color: white; /* Fondo blanco por si acaso */
+        }
+
+        .logo-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .logo-placeholder-text {
+            color: var(--primary-yellow);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .imagen-categoria {
+            width: 100%;
+            max-width: 400px; /* Evita que sea gigante en PC */
+            height: 300px; /* Altura uniforme para todas */
+            object-fit: cover; /* Evita que la foto se deforme */
+            display: block;
+            margin: 0 auto 1.5rem auto; /* Centra la imagen perfectamente */
+            border-radius: 10px;
+            border: 2px solid var(--primary-yellow);
+}
+
+        h1 {
+            color: var(--primary-yellow);
+            font-size: 3rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .menu-category {
+            margin-bottom: 4rem;
+            background: rgba(0,0,0,0.4);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+
+        .category-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            color: var(--primary-yellow);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin: 0 0 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-yellow);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background-color: #222;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px dotted #555;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-yellow);
+            text-transform: uppercase;
+        }
+
+        .item-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .item-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(0,0,0,0.8);
+            color: var(--primary-yellow);
+            border-top: 2px solid var(--primary-yellow);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+    <video autoplay loop muted playsinline class="video-fondo">
+        <source src="video.mp4" type="video/mp4">
+    </video>
+    
+    <div class="contenido-header">
+        <img src="logo.png" alt="Logo El Pabellón" class="logo-container">
+        <h1>El Pabellón</h1>
+        <div class="estrellas">★★★★★★★★</div>
+    </div>
+</header>
+
+    <div class="container">
+
+        <section class="menu-category">
+            <div class="category-header">
+                <h2 class="category-title">Empanadas</h2>
+            </div>
+            <div class="grid">
+                <div class="card"><div class="item-header"><span class="item-name">Pabellón</span><span class="item-price">$ 1,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Carne</span><span class="item-price">$ 1,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Pollo</span><span class="item-price">$ 1,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Carne Molida</span><span class="item-price">$ 1,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Jamón / Queso</span><span class="item-price">$ 1,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Gordon Blue</span><span class="item-price">$ 1,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Carne / Queso</span><span class="item-price">$ 1,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Pollo / Queso</span><span class="item-price">$ 1,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Maduro / Queso</span><span class="item-price">$ 1,50</span></div></div>
+            </div>
+        </section>
+
+        <section class="menu-category">
+            <div class="category-header">
+                <h2 class="category-title">Papas Rellenas</h2>
+            </div>
+            <div class="grid">
+                <div class="card"><div class="item-header"><span class="item-name">Mixta</span><span class="item-price">$ 2,25</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Molida</span><span class="item-price">$ 2,25</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Carne</span><span class="item-price">$ 2,25</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Pollo</span><span class="item-price">$ 2,25</span></div></div>
+            </div>
+        </section>
+
+        <section class="menu-category">
+            <div class="category-header">
+                <h2 class="category-title">Arepas</h2>
+                <div class="category-img-placeholder">Arepa Frita o Asada</div>
+            </div>
+            <div class="grid">
+                <div class="card"><div class="item-header"><span class="item-name">Pabellón</span><span class="item-price">$ 2,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Mixta</span><span class="item-price">$ 2,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Carne</span><span class="item-price">$ 2,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Pollo</span><span class="item-price">$ 2,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Peluda</span><span class="item-price">$ 2,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Jamón / Queso</span><span class="item-price">$ 2,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Reina Pepiada</span><span class="item-price">$ 2,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Salchicha / Huevo</span><span class="item-price">$ 2,50</span></div></div>
+                <div class="card"><div class="item-header"><span class="item-name">Choriarepa</span><span class="item-price">$ 2,50</span></div></div>
+            </div>
+        </section>
+
+        <section class="menu-category">
+            <div class="category-header">
+                <h2 class="category-title">Desayunos y Platos</h2>
+                <img src="pabellon.jpg" class="imagen-categoria" alt="Descripción de la foto">
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="item-header">
+                        <span class="item-name">Desayuno Criollo</span>
+                        <span class="item-price">$ 5,00</span>
+                    </div>
+                    <p class="item-desc">Arepa, Caraota, Queso, Maduro, Carne, Aguacate (Arepa Frita o Asada)</p>
+                </div>
+                <div class="card">
+                    <div class="item-header">
+                        <span class="item-name">Plato de la Casa</span>
+                        <span class="item-price">$ 5,00</span>
+                    </div>
+                    <p class="item-desc">Pabellón Criollo (Arroz o Espagueti)</p>
+                </div>
+                <div class="card">
+                    <div class="item-header">
+                        <span class="item-name">Sancocho Venezolano</span>
+                        <span class="item-price">$ 5,00</span>
+                    </div>
+                    <p class="item-desc">Guarniciones (Arepa asada o Frita, Arroz)</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-category">
+            <div class="category-header">
+                <h2 class="category-title">Cachapas</h2>
+                <div><img src="cachapa.jpeg" class="imagen-categoria" alt="Cachapa venezolano"></div>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Queso de Mano</span><span class="item-price">$ 4,50</span></div>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Especial</span><span class="item-price">$ 7,00</span></div>
+                    <p class="item-desc">Queso de mano y Chancho</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">La Explosiva</span><span class="item-price">$ 9,00</span></div>
+                    <p class="item-desc">Queso de mano y Chancho, Chorizo & Jamón</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-category">
+            <div class="category-header">
+                <h2 class="category-title">Patacones</h2>
+                <div><img src="patacon.jpeg" class="imagen-categoria" alt="Patacon venezolano"></div>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Sencillo</span><span class="item-price">$ 6,00</span></div>
+                    <p class="item-desc">Carne o Pollo, Huevo, Queso, Jamón & Vegetales</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">El Llanero</span><span class="item-price">$ 9,00</span></div>
+                    <p class="item-desc">Carne, Pollo, Chancho, Chorizo, Tocineta, Huevo, Queso, Jamón, Aguacate, Vegetales, Papas al hilo & Salsas</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-category">
+            <div class="category-header">
+                <h2 class="category-title">Salchipapas y Picadas</h2>
+                <div><img src="picada.jpeg" class="imagen-categoria" alt="Descripción de la foto"></div>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Salchipapa Sencilla</span><span class="item-price">$ 3,50</span></div>
+                    <p class="item-desc">Papas, Salchicha, Mozarella & Salsas</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Choripapa</span><span class="item-price">$ 4,50</span></div>
+                    <p class="item-desc">Chorizo, Papas, Mozarella & Salsas</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Picada Sencilla</span><span class="item-price">$ 6,00</span></div>
+                    <p class="item-desc">Papas, Carne o Pollo, Salchicha, Mozarella, Vegetales & Salsas</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Picada Llanera</span><span class="item-price">$ 9,00</span></div>
+                    <p class="item-desc">Carne, Pollo, Chancho, Chorizo, Tocineta, Jamón, Mozarella, Papas, Vegetales & Salsas</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-category">
+            <div class="category-header">
+                <h2 class="category-title">Hamburguesas</h2>
+                <img src="vene.png" class="imagen-categoria" alt="hamburguesa">
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Clásica</span><span class="item-price">$ 2,00</span></div>
+                    <p class="item-desc">Carne regular, Vegetales & Salsas</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Cheese</span><span class="item-price">$ 3,00</span></div>
+                    <p class="item-desc">Carne regular, Huevo, Cheddar, Vegetales & Salsas</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Gordita</span><span class="item-price">$ 3,00</span></div>
+                    <p class="item-desc">Carne o Pollo, Cheddar, Huevo, Vegetales & Salsas</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Venezolana</span><span class="item-price">$ 4,00</span></div>
+                    <p class="item-desc">Carne, Pollo, Tocineta, Huevo, Jamon, Cheddar, Papas al hilo, Vegetales & Salsas</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Chicken Burguer</span><span class="item-price">$ 4,00</span></div>
+                    <p class="item-desc">Milanesa a la plancha, Huevos, Tocineta, Jamon, Cheddar, Vegetales & Salsas</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Explosiva</span><span class="item-price">$ 5,00</span></div>
+                    <p class="item-desc">Carne, Pollo, Chancho, Chorizo, Jamon, Cheddar, Huevo, Papas al hilo, Aguacate, Vegetales & Salsas</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-category">
+            <div class="category-header">
+                <h2 class="category-title">Pepitos Venezolanos</h2>
+                <div ><img src="pepito.jpeg" class="imagen-categoria" alt="Pepito venezolano"></div>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="item-header"><span class="item-name">Sencillo</span><span class="item-price">$ 6,99</span></div>
+                    <p class="item-desc">Carne, Pollo, Huevo, Jamon, Queso, Papitas al hilo, Vegetales & Salsas</p>
+                </div>
+                <div class="card">
+                    <div class="item-header"><span class="item-name">El 4x4</span><span class="item-price">$ 10,99</span></div>
+                    <p class="item-desc">Lomito de res, Pollo, Chancho, Chorizo, Tocineta, Jamon, Huevo, Queso, Aguacate, Papitas al hilo, Vegetales & Salsas</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-category">
+            <div class="category-header">
+                <h2 class="category-title">Bebidas</h2>
+                <div class="category-img-placeholder"></div>
+            </div>
+            <div class="grid">
+                <div class="card"><span class="item-name">Jugos Naturales</span></div>
+                <div class="card"><span class="item-name">Café</span></div>
+                <div class="card"><span class="item-name">Cerveza en lata</span></div>
+                <div class="card"><span class="item-name">Colas Personales</span></div>
+                <div class="card"><span class="item-name">Colas de Litro</span></div>
+                <div class="card"><span class="item-name">Pony Malta Personal</span></div>
+                <div class="card"><span class="item-name">Pony Litro</span></div>
+                <div class="card"><span class="item-name">Fuze Tea</span></div>
+                <div class="card"><span class="item-name">Bebida Energética</span></div>
+                <div class="card"><span class="item-name">Güitig</span></div>
+                <div class="card"><span class="item-name">Agua Personal</span></div>
+                <div class="card"><span class="item-name">Agua</span></div>
+            </div>
+        </section>
+
+    </div>
+
+    <a href="https://wa.me/593979758451?text=Hola,%20quisiera%20hacer%20un%20pedido" class="whatsapp-btn" target="_blank">
+        Pedir por WhatsApp
+    </a>
+    <footer>
+        <div class="info-footer">
+            <h3>Visítanos en El Pabellón</h3>
+            <p><strong>Dirección:</strong> La Troncal, Las Carretas</p>
+            <p><strong>Lunes, Martes, Jueves y Viernes:</strong> 12:00 PM a 11:00 PM</p>
+            <p><strong>Sábados y Domingos:</strong> 11:00 AM a 12:00 AM</p>
+            <p><strong>Miércoles:</strong> Cerrado</p>
+        </div>
+    </footer>
+
+    <footer>
+        <p>&copy; 2026 El Pabellón. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
